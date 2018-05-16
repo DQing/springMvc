@@ -37,4 +37,23 @@ public class EmployeeController {
         List<Employee> employeeList = employeeRepository.findAll();
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/employees/{id}")
+    public ResponseEntity updateEmployee(@PathVariable String id, @RequestBody Map<String, String> data) throws Exception {
+        Employee employee = employeeRepository.findOne(Long.valueOf(id));
+        String name = data.get("name");
+        Long age = Long.valueOf(data.get("age"));
+        String gender = data.get("gender");
+        employee.setName(name);
+        employee.setAge(age);
+        employee.setGender(gender);
+        employeeRepository.save(employee);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/employees/{id}")
+    public ResponseEntity deleteEmployee(@PathVariable Long id) throws Exception{
+        employeeRepository.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
