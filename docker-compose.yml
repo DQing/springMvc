@@ -2,7 +2,7 @@ version: '2'
 services:
   mysql:
     image: mysql:5.7
-    container_name: SpringBoot
+    container_name: SpringMvc
     ports:
       - 3310:3306
     environment:
